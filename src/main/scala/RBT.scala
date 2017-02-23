@@ -201,7 +201,6 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
    */
   def refactorSubtree(refactorLeft: Boolean, onlyRecolor: Boolean): Option[TreeNode] = {
     if (refactorLeft) {
-      println("refactorLeft")
 
       left.map(leftNode => {
 
@@ -210,7 +209,6 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
           if ((leftNode.leftChildIsRed || leftNode.rightChildIsRed) && onlyRecolor) new TreeNode(data, left, right, "black") //recolor middle
           else if (leftNode.rightChildIsRed) {
             //rotate left
-            println("rotate left")
 
             leftNode.right.map(rightNode => {
                 val newLeft = Some(new TreeNode(leftNode.data, leftNode.left, rightNode.left, "red"))
