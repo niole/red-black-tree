@@ -1,6 +1,8 @@
 object Main extends App {
   //currently only covers left red and right or left red case
   var n1 = new RootNode(3, None, None, "black")
+  println(n1.toStringSimple)
+
   n1 = n1.addNode(2)
   n1 = n1.addNode(1)
 
@@ -10,62 +12,65 @@ object Main extends App {
 class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) extends TreeNode(d, l, r, typ) {
 
   override def addNode(value: Int): RootNode = {
-    val side = twoRedLevels
-    val onlyRecolor = right.map(_.isRed).getOrElse(false)
 
     if (value >= data) {
       //add to right
+
+      right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
+
+      val side = twoRedLevels
+      val onlyRecolor = right.map(_.isRed).getOrElse(false)
 
       if (side != "none" && !onlyRecolor) {
         //restructuring, sibling black or null
         //is "right right"
         //add a copy of this node as right child of ln, left child of rn is right child of ln
 
-        right.map(rn => {
-            val added = rn.addNode(value)
-            val refactored = added.refactor(side, onlyRecolor)
-            val refactoredLeftChild = Some(
-              new TreeNode(data, refactored.right, left, "red")
-            )
-
-            new RootNode(refactored.data, refactored.right, refactoredLeftChild, "black")
+        refactorSubtree(false, onlyRecolor).map(refactored => {
+          val refactoredLeftChild = Some(
+            new TreeNode(data, refactored.right, left, "red")
+          )
+          new RootNode(refactored.data, refactored.right, refactoredLeftChild, "black")
         }).getOrElse(new TreeNode(value, None, None, "red"))
 
       }
-      else {
-        //just recoloring, maintain current shape from outset
-        right = right.map(rn => {
-            val added = rn.addNode(value)
-            added.refactor(side, onlyRecolor)
-        }).orElse(Some(new TreeNode(value, None, None, "red")))
-      }
+      else recolorSubtree
     }
     else {
+
+      left = left.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
+
+      val side = twoRedLevels
+      val onlyRecolor = right.map(_.isRed).getOrElse(false)
+
       if (side != "none" && !onlyRecolor) {
         //restructure
         //is "left left"
 
-        left.map(ln => {
-            val added = ln.addNode(value)
-            val refactored = added.refactor(side, onlyRecolor)
-
+        refactorSubtree(true, onlyRecolor).map(refactored => {
             val refactoredRightChild = Some(
               new TreeNode(data, refactored.left, right, "red")
             )
             new RootNode(refactored.data, refactored.left, refactoredRightChild, "black")
         }).getOrElse(new RootNode(value, None, None, "red"))
+
       }
-      else {
-        //recoloring
-        left = left.map(ln => {
-            val added = ln.addNode(value)
-            added.refactor(side, onlyRecolor)
-        }).orElse(Some(new TreeNode(value, None, None, "red")))
-      }
+      else recolorSubtree
 
     }
 
     this
+  }
+
+  override def cloneAsType(t: String): TreeNode = new RootNode(data, left, right, t)
+
+  override def recolorSubtree: RootNode = {
+    new RootNode(
+      data,
+      left.map(_.cloneAsType("black")),
+      right.map(_.cloneAsType("black")),
+      "black"
+    )
   }
 
 }
@@ -75,6 +80,17 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
   var left: Option[TreeNode] = l
   var right: Option[TreeNode] = r
   var t: String = typ
+
+  def recolorSubtree: TreeNode = {
+    new TreeNode(
+      data,
+      left.map(_.cloneAsType("black")),
+      right.map(_.cloneAsType("black")),
+      "red"
+    )
+  }
+
+  def cloneAsType(t: String): TreeNode = new TreeNode(data, left, right, t)
 
   def siblingIsRed(checkLeft: Boolean = false): Boolean = if (checkLeft) left.map(_.isRed).getOrElse(false) else right.map(_.isRed).getOrElse(false)
 
@@ -93,111 +109,49 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
   }
 
   def addNode(value: Int): TreeNode = {
-    val side = twoRedLevels
-    val onlyRecolor = right.map(_.isRed).getOrElse(false)
 
     if (value >= data) {
       //add to right
+
+      right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
+
+      val side = twoRedLevels
+      val onlyRecolor = right.map(_.isRed).getOrElse(false)
 
       if (side != "none" && !onlyRecolor) {
         //restructuring, sibling black or null
         //is "right right"
         //add a copy of this node as right child of ln, left child of rn is right child of ln
 
-        right.map(rn => {
-            val added = rn.addNode(value)
-            val refactored = added.refactor(side, onlyRecolor)
-            val refactoredLeftChild = Some(
-              new TreeNode(data, refactored.right, left, "red")
-            )
-
-            new TreeNode(refactored.data, refactored.right, refactoredLeftChild, "black")
+        refactorSubtree(false, onlyRecolor).map(refactored => {
+          val refactoredLeftChild = Some(
+            new TreeNode(data, refactored.right, left, "red")
+          )
+          new TreeNode(refactored.data, refactored.right, refactoredLeftChild, "black")
         }).getOrElse(new TreeNode(value, None, None, "red"))
 
       }
-      else {
-        //just recoloring, maintain current shape from outset
-        right = right.map(rn => {
-            val added = rn.addNode(value)
-            added.refactor(side, onlyRecolor)
-        }).orElse(Some(new TreeNode(value, None, None, "red")))
-      }
+      else recolorSubtree
     }
     else {
+
+      left = left.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
+
+      val side = twoRedLevels
+      val onlyRecolor = right.map(_.isRed).getOrElse(false)
+
       if (side != "none" && !onlyRecolor) {
         //restructure
         //is "left left"
 
-        left.map(ln => {
-            val added = ln.addNode(value)
-            val refactored = added.refactor(side, onlyRecolor)
-
+        refactorSubtree(true, onlyRecolor).map(refactored => {
             val refactoredRightChild = Some(
               new TreeNode(data, refactored.left, right, "red")
             )
             new TreeNode(refactored.data, refactored.left, refactoredRightChild, "black")
         }).getOrElse(new TreeNode(value, None, None, "red"))
       }
-      else {
-        //recoloring
-        left = left.map(ln => {
-            val added = ln.addNode(value)
-            added.refactor(side, onlyRecolor)
-        }).orElse(Some(new TreeNode(value, None, None, "red")))
-      }
-
-    }
-
-    this
-  }
-
-  def refactor(side: String, onlyRecolor: Boolean): TreeNode = {
-    //if child and grandchild are red, refactor
-    //need RootNode and TreeNode versions
-
-    if (side == "left") {
-
-      var updatedChild = refactorSubtree(true, onlyRecolor) //subtree recolored properly, first rotatation has happened if necessary
-
-      if (onlyRecolor) {
-        //recolor self and right child
-
-        new TreeNode(
-          data,
-          updatedChild,
-          right.map(rightNode => new TreeNode(rightNode.data, rightNode.left, rightNode.right, "black")),
-          "red"
-        )
-      }
-      else {
-        //sibling is black or null
-        //by this time we should already have done a left rotation if necessary
-        //only do right rotation
-
-        updatedChild.get
-      }
-
-    }
-    else if (side == "right") {
-      var updatedChild = refactorSubtree(false, onlyRecolor)
-
-      if (onlyRecolor) {
-        //recolor self and left child
-
-        new TreeNode(
-          data,
-          left.map(leftNode => new TreeNode(leftNode.data, leftNode.left, leftNode.right, "black")),
-          updatedChild,
-          "red"
-        )
-      } else {
-        //sibling is black or null
-        //by this time we should already have done a left rotation if necessary
-        //only do right rotation
-
-        updatedChild.get
-      }
-
+      else recolorSubtree
     }
 
     this
