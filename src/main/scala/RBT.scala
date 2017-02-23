@@ -1,25 +1,16 @@
 package rbt
 
 object Main extends App {
-  //currently only covers left red and right or left red case
-  var n1 = new RedBlackTree(3)
-  println(n1)
+  val rbt = new RedBlackTree(1)
 
-  n1 = n1.addNode(2)
-  println(n1)
-  n1 = n1.addNode(1)
+  rbt.addNode(2)
+  rbt.addNode(3)
 
-  println(n1)
+  val root = rbt.getRoot
 
-  n1 = n1.addNode(1)
-
-  println(n1)
-
-  n1 = n1.addNode(1)
-
-  println(n1)
-
+  println(root)
 }
+
 
 class RedBlackTree(value: Int) {
   private var root: RootNode = init(value)
@@ -43,9 +34,8 @@ class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) ex
 
       right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
-
       if (hasTwoRedLevels) {
-        val onlyRecolor = right.map(_.isRed).getOrElse(false)
+        val onlyRecolor = left.map(_.isRed).getOrElse(false)
 
         if (!onlyRecolor) {
           //restructuring, sibling black or null
@@ -54,9 +44,9 @@ class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) ex
 
           refactorSubtree(false, onlyRecolor).map(refactored => {
             val refactoredLeftChild = Some(
-              new TreeNode(data, refactored.right, left, "red")
+              new TreeNode(data, left, refactored.left, "red")
             )
-            new RootNode(refactored.data, refactored.right, refactoredLeftChild, "black")
+            new RootNode(refactored.data, refactoredLeftChild, refactored.right, "black")
           }).get
 
         }
@@ -151,7 +141,7 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
       right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        val onlyRecolor = right.map(_.isRed).getOrElse(false)
+        val onlyRecolor = left.map(_.isRed).getOrElse(false)
 
         if (!onlyRecolor) {
           //restructuring, sibling black or null

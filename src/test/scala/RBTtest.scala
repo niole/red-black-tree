@@ -61,8 +61,32 @@ class RBTtest extends FlatSpec {
   "3 element RedBlackTree" should "rotate when right child and right grandchild are red and left child is None" in {
     val rbt = new RedBlackTree(1)
 
+    assert(rbt.getRoot.data == 1)
+
     rbt.addNode(2)
+
+    assert(rbt.getRoot.right.get.data == 2)
+
     rbt.addNode(3)
+
+    val root = rbt.getRoot
+
+    assert(root.data == 2)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 3)
+    assert(root.left.get.t == "red")
+    assert(root.right.get.t == "red")
+    assert(root.t == "black")
+  }
+
+  "3 element RedBlackTree" should "rotate when right child and left grandchild are red and left child is None" in {
+    val rbt = new RedBlackTree(1)
+
+    rbt.addNode(3)
+
+    assert(rbt.getRoot.right.get.data == 3)
+
+    rbt.addNode(2)
 
     val root = rbt.getRoot
 
