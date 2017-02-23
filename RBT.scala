@@ -9,6 +9,10 @@ object Main extends App {
 
   println(n1)
 
+  n1 = n1.addNode(1)
+
+  println(n1)
+
 }
 
 class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) extends TreeNode(d, l, r, typ) {
@@ -152,11 +156,9 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
       left = left.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        println("has two levels")
         val onlyRecolor = right.map(_.isRed).getOrElse(false)
 
         if (!onlyRecolor) {
-           println("not recolor")
           //restructure
           //is "left left"
 
