@@ -98,4 +98,99 @@ class RBTtest extends FlatSpec {
     assert(root.t == "black")
   }
 
+  "balanced 3 element RedBlackTree" should "recolor when left left grandchild added" in {
+    val rbt = new RedBlackTree(2)
+
+    rbt.addNode(3)
+    rbt.addNode(1)
+
+    var root = rbt.getRoot
+
+    assert(root.data == 2)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 3)
+    assert(root.left.get.t == "red")
+    assert(root.right.get.t == "red")
+    assert(root.t == "black")
+
+    rbt.addNode(0)
+
+    root = rbt.getRoot
+
+    assert(root.data == 2)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 3)
+    assert(root.left.get.left.get.data == 0)
+
+    assert(root.left.get.left.get.t == "red")
+    assert(root.left.get.t == "black")
+    assert(root.right.get.t == "black")
+    assert(root.t == "black")
+
+  }
+
+  "balanced 3 element RedBlackTree" should "recolor when left right grandchild added" in {
+    val rbt = new RedBlackTree(3)
+
+    rbt.addNode(4)
+    rbt.addNode(1)
+    rbt.addNode(2)
+
+    val root = rbt.getRoot
+
+
+    assert(root.data == 3)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 4)
+    assert(root.left.get.right.get.data == 2)
+
+    assert(root.left.get.right.get.t == "red")
+    assert(root.left.get.t == "black")
+    assert(root.right.get.t == "black")
+    assert(root.t == "black")
+
+  }
+
+  "balanced 3 element RedBlackTree" should "recolor when right right grandchild added" in {
+    val rbt = new RedBlackTree(2)
+
+    rbt.addNode(3)
+    rbt.addNode(1)
+    rbt.addNode(4)
+
+    val root = rbt.getRoot
+
+    assert(root.data == 2)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 3)
+    assert(root.right.get.right.get.data == 4)
+
+    assert(root.right.get.right.get.t == "red")
+    assert(root.left.get.t == "black")
+    assert(root.right.get.t == "black")
+    assert(root.t == "black")
+
+  }
+
+  "balanced 3 element RedBlackTree" should "recolor when right left grandchild added" in {
+    val rbt = new RedBlackTree(3)
+
+    rbt.addNode(5)
+    rbt.addNode(1)
+    rbt.addNode(4)
+
+    val root = rbt.getRoot
+
+    assert(root.data == 3)
+    assert(root.left.get.data == 1)
+    assert(root.right.get.data == 5)
+    assert(root.right.get.left.get.data == 4)
+
+    assert(root.right.get.left.get.t == "red")
+    assert(root.left.get.t == "black")
+    assert(root.right.get.t == "black")
+    assert(root.t == "black")
+
+  }
+
 }
