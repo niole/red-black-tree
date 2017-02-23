@@ -174,6 +174,9 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
    * always recolors subnodes
    */
   def refactorSubtree(refactorLeft: Boolean, onlyRecolor: Boolean): Option[TreeNode] = {
+    println("refactorSubtree")
+    println(refactorLeft)
+
     if (refactorLeft) {
 
       left.map(leftNode => {
