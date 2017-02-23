@@ -35,7 +35,7 @@ class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) ex
       right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        val onlyRecolor = left.map(_.isRed).getOrElse(false)
+        val onlyRecolor = leftChildIsRed
 
         if (!onlyRecolor) {
           //restructuring, sibling black or null
@@ -59,7 +59,7 @@ class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) ex
       left = left.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        val onlyRecolor = right.map(_.isRed).getOrElse(false)
+        val onlyRecolor = rightChildIsRed
 
         if (!onlyRecolor) {
           //restructure
@@ -117,8 +117,6 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
 
   def cloneAsType(t: String): TreeNode = new TreeNode(data, left, right, t)
 
-  def siblingIsRed(checkLeft: Boolean = false): Boolean = if (checkLeft) left.map(_.isRed).getOrElse(false) else right.map(_.isRed).getOrElse(false)
-
   def toStringSimple: String = {
     val lNode = left.map(ln => ln.toStringSimple).getOrElse("none")
     val rNode = right.map(rn => rn.toStringSimple).getOrElse("none")
@@ -141,7 +139,7 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
       right = right.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        val onlyRecolor = left.map(_.isRed).getOrElse(false)
+        val onlyRecolor = leftChildIsRed
 
         if (!onlyRecolor) {
           //restructuring, sibling black or null
@@ -150,9 +148,9 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
 
           refactorSubtree(false, onlyRecolor).map(refactored => {
             val refactoredLeftChild = Some(
-              new TreeNode(data, refactored.right, left, "red")
+              new TreeNode(data, left, refactored.left, "red")
             )
-            new TreeNode(refactored.data, refactored.right, refactoredLeftChild, "black")
+            new TreeNode(refactored.data, refactoredLeftChild, refactored.right, "black")
           }).get
 
         }
@@ -165,7 +163,7 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
       left = left.map(_.addNode(value)).orElse(Some(new TreeNode(value, None, None, "red")))
 
       if (hasTwoRedLevels) {
-        val onlyRecolor = right.map(_.isRed).getOrElse(false)
+        val onlyRecolor = rightChildIsRed
 
         if (!onlyRecolor) {
           //restructure
@@ -173,11 +171,12 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
 
           refactorSubtree(true, onlyRecolor).map(refactored => {
               val refactoredRightChild = Some(
-                new TreeNode(data, refactored.left, right, "red")
+                new TreeNode(data, refactored.right, right, "red")
               )
 
-              new TreeNode(refactored.data, refactored.left, refactoredRightChild, "black")
+              new RootNode(refactored.data, refactored.left, refactoredRightChild, "black")
           }).get
+
         }
         else recolorSubtree
       }
@@ -202,6 +201,7 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
    */
   def refactorSubtree(refactorLeft: Boolean, onlyRecolor: Boolean): Option[TreeNode] = {
     if (refactorLeft) {
+      println("refactorLeft")
 
       left.map(leftNode => {
 
@@ -210,9 +210,10 @@ class TreeNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) {
           if ((leftNode.leftChildIsRed || leftNode.rightChildIsRed) && onlyRecolor) new TreeNode(data, left, right, "black") //recolor middle
           else if (leftNode.rightChildIsRed) {
             //rotate left
+            println("rotate left")
 
             leftNode.right.map(rightNode => {
-                val newLeft = left.map(ln => new TreeNode(ln.data, ln.left, rightNode.left, "red"))
+                val newLeft = Some(new TreeNode(leftNode.data, leftNode.left, rightNode.left, "red"))
                 new TreeNode(rightNode.data, newLeft, rightNode.right, "black")
             }).get
 
