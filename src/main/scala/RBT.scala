@@ -1,6 +1,8 @@
+package rbt
+
 object Main extends App {
   //currently only covers left red and right or left red case
-  var n1 = new RootNode(3, None, None, "black")
+  var n1 = new RedBlackTree(3)
   println(n1)
 
   n1 = n1.addNode(2)
@@ -13,6 +15,23 @@ object Main extends App {
 
   println(n1)
 
+  n1 = n1.addNode(1)
+
+  println(n1)
+
+}
+
+class RedBlackTree(value: Int) {
+  private var root: RootNode = init(value)
+
+  private[this] def init(value: Int): RootNode = new RootNode(value, None, None, "black")
+
+  def addNode(value: Int): RedBlackTree = {
+    root = root.addNode(value)
+    this
+  }
+
+  def getRoot: RootNode = root
 }
 
 class RootNode(d: Int, l: Option[TreeNode], r: Option[TreeNode], typ: String) extends TreeNode(d, l, r, typ) {
