@@ -10,6 +10,7 @@ object RBT {
   def redBlackTree(value: Option[Int]): Option[RedBlackTree] = value.map(new RedBlackTree(_))
 
   class RedBlackTree(value: Int) {
+    //TODO this conflates view and data, must separate
     private var root: RootNode = init(value)
 
     def getAllNumbers(node: TreeNode, formattingCB: (TreeNode) => TypedTag[Div], nodeType: String): TypedTag[Div] = {
