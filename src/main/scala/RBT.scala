@@ -15,9 +15,9 @@ object RBT {
     def getAllNumbers(node: TreeNode, formattingCB: (TreeNode) => TypedTag[Div], nodeType: String): TypedTag[Div] = {
       div(
         cls:=s"tree-box $nodeType",
-        node.left.map(getAllNumbers(_, formattingCB, "left-child")).getOrElse(div()),
+        node.left.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div()),
         formattingCB(node),
-        node.right.map(getAllNumbers(_, formattingCB, "right-child")).getOrElse(div())
+        node.right.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div())
       )
     }
 
