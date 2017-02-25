@@ -1,5 +1,9 @@
 package rbt
 
+import org.scalajs.dom.html.Div
+import scalatags.JsDom.TypedTag
+import scalatags.JsDom.all._
+
 
 object RBT {
 
@@ -8,7 +12,14 @@ object RBT {
   class RedBlackTree(value: Int) {
     private var root: RootNode = init(value)
 
-    def getAllNumbers(node: TreeNode): String = node.left.map(getAllNumbers(_)).getOrElse("")+node.data.toString+node.right.map(getAllNumbers(_)).getOrElse("")
+    def getAllNumbers(node: TreeNode, formattingCB: (TreeNode) => TypedTag[Div], nodeType: String): TypedTag[Div] = {
+      div(
+        cls:=s"tree-box $nodeType",
+        node.left.map(getAllNumbers(_, formattingCB, "left-child")).getOrElse(div()),
+        formattingCB(node),
+        node.right.map(getAllNumbers(_, formattingCB, "right-child")).getOrElse(div())
+      )
+    }
 
     private[this] def init(value: Int): RootNode = new RootNode(value, None, None, "black")
 

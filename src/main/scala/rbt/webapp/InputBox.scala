@@ -32,7 +32,7 @@ class InputBox(placeholder: String, header: String) {
 
   def setRenderCallBack(cb: Int => Unit): Unit = renderCallBack = cb
 
-  def updateVis(allNodesNumbers: String): Unit = {
+  def updateVis(allNodesNumbers: Div): Unit = {
     nodeNumbersContainer.innerHTML = ""
     nodeNumbersContainer.appendChild(div(allNodesNumbers).render)
   }

@@ -2,9 +2,12 @@ package rbt
 
 import RBT._
 import scala.scalajs.js.JSApp
+import scalatags.JsDom.TypedTag
+import scalatags.JsDom.all._
 import org.scalajs.dom
 import dom._
-import window.{clearTimeout, setTimeout}
+import dom.html._
+import window.setTimeout
 
 object RBTData extends JSApp {
   def main(): Unit = {
@@ -20,14 +23,18 @@ object RBTData extends JSApp {
       rbt = rbt.map(_.addNode(number)).orElse(Some(new RedBlackTree(number)))
 
       val ns = rbt.map(tree => {
-          tree.getAllNumbers(tree.getRoot)
-        }).getOrElse("")
+          tree.getAllNumbers(tree.getRoot, getNumberElement, "root").render
+        }).getOrElse(div().render)
 
       val tm = setTimeout(() => inputBox.updateVis(ns), 500)
     })
 
+    def getNumberElement(node: TreeNode): TypedTag[Div] = {
+      val t = node.t
+      val data = node.data
+      div(cls:=s"letter-node $t", s"$data")
+    }
+
   }
 }
-
-
 
