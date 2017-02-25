@@ -1,26 +1,12 @@
 package rbt
 
-import org.scalajs.dom.html.Div
-import scalatags.JsDom.TypedTag
-import scalatags.JsDom.all._
-
 
 object RBT {
 
   def redBlackTree(value: Option[Int]): Option[RedBlackTree] = value.map(new RedBlackTree(_))
 
   class RedBlackTree(value: Int) {
-    //TODO this conflates view and data, must separate
     private var root: RootNode = init(value)
-
-    def getAllNumbers(node: TreeNode, formattingCB: (TreeNode) => TypedTag[Div], nodeType: String): TypedTag[Div] = {
-      div(
-        cls:=s"tree-box $nodeType",
-        node.left.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div()),
-        formattingCB(node),
-        node.right.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div())
-      )
-    }
 
     private[this] def init(value: Int): RootNode = new RootNode(value, None, None, "black")
 

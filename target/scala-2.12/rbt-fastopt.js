@@ -1592,42 +1592,6 @@ function $h_Lrbt_RBT$RedBlackTree() {
   /*<skip>*/
 }
 $h_Lrbt_RBT$RedBlackTree.prototype = $c_Lrbt_RBT$RedBlackTree.prototype;
-$c_Lrbt_RBT$RedBlackTree.prototype.getAllNumbers__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag = (function(node, formattingCB, nodeType) {
-  var this$1 = $m_Lscalatags_JsDom$all$();
-  var jsx$6 = this$1.div__Lscalatags_JsDom$TypedTag();
-  var jsx$5 = $m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr().$$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["tree-box ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([nodeType])), $m_Lscalatags_JsDom$all$().stringAttr$1);
-  var this$2 = node.left$1;
-  if (this$2.isEmpty__Z()) {
-    var this$3 = $m_s_None$()
-  } else {
-    var arg1 = this$2.get__O();
-    var x$2 = $as_Lrbt_RBT$TreeNode(arg1);
-    var this$3 = new $c_s_Some().init___O(this.getAllNumbers__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(x$2, formattingCB, "child"))
-  };
-  if (this$3.isEmpty__Z()) {
-    var this$4 = $m_Lscalatags_JsDom$all$();
-    var jsx$4 = this$4.div__Lscalatags_JsDom$TypedTag().apply__sc_Seq__Lscalatags_JsDom$TypedTag($m_sci_Nil$())
-  } else {
-    var jsx$4 = this$3.get__O()
-  };
-  var jsx$3 = $as_Lscalatags_generic_Modifier(jsx$4);
-  var jsx$2 = $as_Lscalatags_generic_Modifier(formattingCB.apply__O__O(node));
-  var this$5 = node.right$1;
-  if (this$5.isEmpty__Z()) {
-    var this$6 = $m_s_None$()
-  } else {
-    var arg1$1 = this$5.get__O();
-    var x$3 = $as_Lrbt_RBT$TreeNode(arg1$1);
-    var this$6 = new $c_s_Some().init___O(this.getAllNumbers__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(x$3, formattingCB, "child"))
-  };
-  if (this$6.isEmpty__Z()) {
-    var this$7 = $m_Lscalatags_JsDom$all$();
-    var jsx$1 = this$7.div__Lscalatags_JsDom$TypedTag().apply__sc_Seq__Lscalatags_JsDom$TypedTag($m_sci_Nil$())
-  } else {
-    var jsx$1 = this$6.get__O()
-  };
-  return jsx$6.apply__sc_Seq__Lscalatags_JsDom$TypedTag(new $c_sjs_js_WrappedArray().init___sjs_js_Array([jsx$5, jsx$3, jsx$2, $as_Lscalatags_generic_Modifier(jsx$1)]))
-});
 $c_Lrbt_RBT$RedBlackTree.prototype.init___I = (function(value) {
   this.root$1 = new $c_Lrbt_RBT$RootNode().init___I__s_Option__s_Option__T(value, $m_s_None$(), $m_s_None$(), "black");
   return this
@@ -1677,8 +1641,8 @@ $c_Lrbt_RBT$TreeNode.prototype.rightChildIsRed__Z = (function() {
     var this$2 = $m_s_None$()
   } else {
     var arg1 = this$1.get__O();
-    var x$13 = $as_Lrbt_RBT$TreeNode(arg1);
-    var this$2 = new $c_s_Some().init___O(x$13.isRed__Z())
+    var x$11 = $as_Lrbt_RBT$TreeNode(arg1);
+    var this$2 = new $c_s_Some().init___O(x$11.isRed__Z())
   };
   return $uZ((this$2.isEmpty__Z() ? false : this$2.get__O()))
 });
@@ -1730,8 +1694,8 @@ $c_Lrbt_RBT$TreeNode.prototype.leftChildIsRed__Z = (function() {
     var this$2 = $m_s_None$()
   } else {
     var arg1 = this$1.get__O();
-    var x$12 = $as_Lrbt_RBT$TreeNode(arg1);
-    var this$2 = new $c_s_Some().init___O(x$12.isRed__Z())
+    var x$10 = $as_Lrbt_RBT$TreeNode(arg1);
+    var this$2 = new $c_s_Some().init___O(x$10.isRed__Z())
   };
   return $uZ((this$2.isEmpty__Z() ? false : this$2.get__O()))
 });
@@ -1742,8 +1706,8 @@ $c_Lrbt_RBT$TreeNode.prototype.addNode__I__Lrbt_RBT$TreeNode = (function(value) 
       var this$2 = $m_s_None$()
     } else {
       var arg1 = this$1.get__O();
-      var x$10 = $as_Lrbt_RBT$TreeNode(arg1);
-      var this$2 = new $c_s_Some().init___O(x$10.addNode__I__Lrbt_RBT$TreeNode(value))
+      var x$8 = $as_Lrbt_RBT$TreeNode(arg1);
+      var this$2 = new $c_s_Some().init___O(x$8.addNode__I__Lrbt_RBT$TreeNode(value))
     };
     this.right$1 = (this$2.isEmpty__Z() ? new $c_s_Some().init___O(new $c_Lrbt_RBT$TreeNode().init___I__s_Option__s_Option__T(value, $m_s_None$(), $m_s_None$(), "red")) : this$2);
     if (this.hasTwoRedLevels__Z()) {
@@ -1770,8 +1734,8 @@ $c_Lrbt_RBT$TreeNode.prototype.addNode__I__Lrbt_RBT$TreeNode = (function(value) 
       var this$5 = $m_s_None$()
     } else {
       var arg1$2 = this$4.get__O();
-      var x$11 = $as_Lrbt_RBT$TreeNode(arg1$2);
-      var this$5 = new $c_s_Some().init___O(x$11.addNode__I__Lrbt_RBT$TreeNode(value))
+      var x$9 = $as_Lrbt_RBT$TreeNode(arg1$2);
+      var this$5 = new $c_s_Some().init___O(x$9.addNode__I__Lrbt_RBT$TreeNode(value))
     };
     this.left$1 = (this$5.isEmpty__Z() ? new $c_s_Some().init___O(new $c_Lrbt_RBT$TreeNode().init___I__s_Option__s_Option__T(value, $m_s_None$(), $m_s_None$(), "red")) : this$5);
     if (this.hasTwoRedLevels__Z()) {
@@ -1804,16 +1768,16 @@ $c_Lrbt_RBT$TreeNode.prototype.recolorSubtree__Lrbt_RBT$TreeNode = (function() {
     var jsx$2 = $m_s_None$()
   } else {
     var arg1 = this$1.get__O();
-    var x$8 = $as_Lrbt_RBT$TreeNode(arg1);
-    var jsx$2 = new $c_s_Some().init___O(x$8.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
+    var x$6 = $as_Lrbt_RBT$TreeNode(arg1);
+    var jsx$2 = new $c_s_Some().init___O(x$6.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
   };
   var this$2 = this.right$1;
   if (this$2.isEmpty__Z()) {
     var jsx$1 = $m_s_None$()
   } else {
     var arg1$1 = this$2.get__O();
-    var x$9 = $as_Lrbt_RBT$TreeNode(arg1$1);
-    var jsx$1 = new $c_s_Some().init___O(x$9.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
+    var x$7 = $as_Lrbt_RBT$TreeNode(arg1$1);
+    var jsx$1 = new $c_s_Some().init___O(x$7.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
   };
   return new $c_Lrbt_RBT$TreeNode().init___I__s_Option__s_Option__T(jsx$3, jsx$2, jsx$1, "red")
 });
@@ -3469,8 +3433,8 @@ $c_Lrbt_RBT$RootNode.prototype.addNode__I__Lrbt_RBT$RootNode = (function(value) 
       var this$2 = $m_s_None$()
     } else {
       var arg1 = this$1.get__O();
-      var x$4 = $as_Lrbt_RBT$TreeNode(arg1);
-      var this$2 = new $c_s_Some().init___O(x$4.addNode__I__Lrbt_RBT$TreeNode(value))
+      var x$2 = $as_Lrbt_RBT$TreeNode(arg1);
+      var this$2 = new $c_s_Some().init___O(x$2.addNode__I__Lrbt_RBT$TreeNode(value))
     };
     this.right$1 = (this$2.isEmpty__Z() ? new $c_s_Some().init___O(new $c_Lrbt_RBT$TreeNode().init___I__s_Option__s_Option__T(value, $m_s_None$(), $m_s_None$(), "red")) : this$2);
     if (this.hasTwoRedLevels__Z()) {
@@ -3497,8 +3461,8 @@ $c_Lrbt_RBT$RootNode.prototype.addNode__I__Lrbt_RBT$RootNode = (function(value) 
       var this$5 = $m_s_None$()
     } else {
       var arg1$2 = this$4.get__O();
-      var x$5 = $as_Lrbt_RBT$TreeNode(arg1$2);
-      var this$5 = new $c_s_Some().init___O(x$5.addNode__I__Lrbt_RBT$TreeNode(value))
+      var x$3 = $as_Lrbt_RBT$TreeNode(arg1$2);
+      var this$5 = new $c_s_Some().init___O(x$3.addNode__I__Lrbt_RBT$TreeNode(value))
     };
     this.left$1 = (this$5.isEmpty__Z() ? new $c_s_Some().init___O(new $c_Lrbt_RBT$TreeNode().init___I__s_Option__s_Option__T(value, $m_s_None$(), $m_s_None$(), "red")) : this$5);
     if (this.hasTwoRedLevels__Z()) {
@@ -3533,16 +3497,16 @@ $c_Lrbt_RBT$RootNode.prototype.recolorSubtree__Lrbt_RBT$RootNode = (function() {
     var jsx$2 = $m_s_None$()
   } else {
     var arg1 = this$1.get__O();
-    var x$6 = $as_Lrbt_RBT$TreeNode(arg1);
-    var jsx$2 = new $c_s_Some().init___O(x$6.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
+    var x$4 = $as_Lrbt_RBT$TreeNode(arg1);
+    var jsx$2 = new $c_s_Some().init___O(x$4.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
   };
   var this$2 = this.right$1;
   if (this$2.isEmpty__Z()) {
     var jsx$1 = $m_s_None$()
   } else {
     var arg1$1 = this$2.get__O();
-    var x$7 = $as_Lrbt_RBT$TreeNode(arg1$1);
-    var jsx$1 = new $c_s_Some().init___O(x$7.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
+    var x$5 = $as_Lrbt_RBT$TreeNode(arg1$1);
+    var jsx$1 = new $c_s_Some().init___O(x$5.cloneAsType__T__Lrbt_RBT$TreeNode("black"))
   };
   return new $c_Lrbt_RBT$RootNode().init___I__s_Option__s_Option__T(jsx$3, jsx$2, jsx$1, "black")
 });
@@ -3577,6 +3541,42 @@ function $h_Lrbt_RBTData$() {
   /*<skip>*/
 }
 $h_Lrbt_RBTData$.prototype = $c_Lrbt_RBTData$.prototype;
+$c_Lrbt_RBTData$.prototype.getAllNumbers$1__p1__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag = (function(node, formattingCB, nodeType) {
+  var this$1 = $m_Lscalatags_JsDom$all$();
+  var jsx$6 = this$1.div__Lscalatags_JsDom$TypedTag();
+  var jsx$5 = $m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr().$$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["tree-box ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([nodeType])), $m_Lscalatags_JsDom$all$().stringAttr$1);
+  var this$2 = node.left$1;
+  if (this$2.isEmpty__Z()) {
+    var this$3 = $m_s_None$()
+  } else {
+    var arg1 = this$2.get__O();
+    var x$2 = $as_Lrbt_RBT$TreeNode(arg1);
+    var this$3 = new $c_s_Some().init___O(this.getAllNumbers$1__p1__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(x$2, formattingCB, "child"))
+  };
+  if (this$3.isEmpty__Z()) {
+    var this$4 = $m_Lscalatags_JsDom$all$();
+    var jsx$4 = this$4.div__Lscalatags_JsDom$TypedTag().apply__sc_Seq__Lscalatags_JsDom$TypedTag($m_sci_Nil$())
+  } else {
+    var jsx$4 = this$3.get__O()
+  };
+  var jsx$3 = $as_Lscalatags_generic_Modifier(jsx$4);
+  var jsx$2 = $as_Lscalatags_generic_Modifier(formattingCB.apply__O__O(node));
+  var this$5 = node.right$1;
+  if (this$5.isEmpty__Z()) {
+    var this$6 = $m_s_None$()
+  } else {
+    var arg1$1 = this$5.get__O();
+    var x$3 = $as_Lrbt_RBT$TreeNode(arg1$1);
+    var this$6 = new $c_s_Some().init___O(this.getAllNumbers$1__p1__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(x$3, formattingCB, "child"))
+  };
+  if (this$6.isEmpty__Z()) {
+    var this$7 = $m_Lscalatags_JsDom$all$();
+    var jsx$1 = this$7.div__Lscalatags_JsDom$TypedTag().apply__sc_Seq__Lscalatags_JsDom$TypedTag($m_sci_Nil$())
+  } else {
+    var jsx$1 = this$6.get__O()
+  };
+  return jsx$6.apply__sc_Seq__Lscalatags_JsDom$TypedTag(new $c_sjs_js_WrappedArray().init___sjs_js_Array([jsx$5, jsx$3, jsx$2, $as_Lscalatags_generic_Modifier(jsx$1)]))
+});
 $c_Lrbt_RBTData$.prototype.init___ = (function() {
   return this
 });
@@ -3612,7 +3612,7 @@ $c_Lrbt_RBTData$.prototype.main__V = (function() {
       } else {
         var arg1$1 = this$4.get__O();
         var tree = $as_Lrbt_RBT$RedBlackTree(arg1$1);
-        var this$5 = new $c_s_Some().init___O(tree.getAllNumbers__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(tree.root$1, new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function($this$1) {
+        var this$5 = new $c_s_Some().init___O($this.getAllNumbers$1__p1__Lrbt_RBT$TreeNode__F1__T__Lscalatags_JsDom$TypedTag(tree.root$1, new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function($this$1) {
           return (function(node$2) {
             var node = $as_Lrbt_RBT$TreeNode(node$2);
             return $this$1.getNumberElement$1__p1__Lrbt_RBT$TreeNode__Lscalatags_JsDom$TypedTag(node)

@@ -23,7 +23,7 @@ object RBTData extends JSApp {
       rbt = rbt.map(_.addNode(number)).orElse(Some(new RedBlackTree(number)))
 
       val ns = rbt.map(tree => {
-          tree.getAllNumbers(tree.getRoot, getNumberElement, "root").render
+          getAllNumbers(tree.getRoot, getNumberElement, "root").render
         }).getOrElse(div().render)
 
       val tm = setTimeout(() => inputBox.updateVis(ns), 500)
@@ -33,6 +33,15 @@ object RBTData extends JSApp {
       val t = node.t
       val data = node.data
       div(cls:=s"letter-node $t", s"$data")
+    }
+
+    def getAllNumbers(node: TreeNode, formattingCB: (TreeNode) => TypedTag[Div], nodeType: String): TypedTag[Div] = {
+      div(
+        cls:=s"tree-box $nodeType",
+        node.left.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div()),
+        formattingCB(node),
+        node.right.map(getAllNumbers(_, formattingCB, "child")).getOrElse(div())
+      )
     }
 
   }
